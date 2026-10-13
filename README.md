@@ -59,7 +59,9 @@ Open the address printed by Vite (normally `http://localhost:5173`). `VITE_API_U
 | `/api/auth/logout/` | POST | Revoke the current token |
 | `/api/auth/me/` | GET | Get current user |
 | `/api/profile/` | GET, PUT | Read/update the current user’s health profile |
-| `/api/labs/reports/` | GET, POST | Initial lab-report API structure |
+| `/api/labs/` | GET, POST | List or create the current user's blood-test reports |
+| `/api/labs/<id>/` | GET | Retrieve one of the current user's reports and results |
+| `/api/labs/reports/` | GET, POST | Backward-compatible alias for the collection endpoint |
 | `/api/nutrients/` | GET | Read nutrient records when they exist |
 
 Authenticated requests use `Authorization: Token <token>`. The React client manages it centrally and clears it if the token becomes invalid.
@@ -69,7 +71,29 @@ Authenticated requests use `Authorization: Token <token>`. The React client mana
 - Registration, login, logout, persisted frontend auth state, and protected routes.
 - Private health profile creation and update.
 - Landing page, dashboard, sidebar navigation, lab-entry skeleton, and clearly marked placeholder pages.
+- Manual blood-test entry with one or more results, optional lab reference limits, private report history, and report detail views.
 - Foundational `LabReport`, `LabResult`, and `Nutrient` models.
+
+### Creating a blood-test report
+
+Send an authenticated `POST /api/labs/` request such as:
+
+```json
+{
+  "test_date": "2026-10-10",
+  "results": [
+    {
+      "biomarker": "Ferritin",
+      "value": 25.5,
+      "unit": "ng/mL",
+      "reference_low": 15,
+      "reference_high": 150
+    }
+  ]
+}
+```
+
+The API validates dates, result fields, numeric limits, and reference-range ordering. It does not classify or interpret results.
 
 ## Deliberately not implemented
 

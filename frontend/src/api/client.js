@@ -9,7 +9,10 @@ client.interceptors.request.use((config) => {
 export const apiError = (error) => {
   const data = error.response?.data
   if (typeof data?.detail === 'string') return data.detail
-  if (data && typeof data === 'object') return Object.values(data).flat().join(' ')
+  if (data && typeof data === 'object') {
+    const flatten = (value) => Array.isArray(value) ? value.flatMap(flatten) : typeof value === 'object' && value ? Object.values(value).flatMap(flatten) : String(value)
+    return flatten(data).join(' ')
+  }
   return 'Something went wrong. Please try again.'
 }
 export default client
