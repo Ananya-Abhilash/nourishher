@@ -12,3 +12,24 @@ class HealthProfile(models.Model):
     is_pregnant = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Symptom(models.Model):
+    class Frequency(models.TextChoices):
+        OCCASIONAL = "occasional", "Occasional"
+        DAILY = "daily", "Daily"
+        SEVERAL_TIMES_A_WEEK = "several_times_a_week", "Several times a week"
+        WEEKLY = "weekly", "Weekly"
+        UNKNOWN = "unknown", "Unknown"
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="symptoms")
+    name = models.CharField(max_length=150)
+    severity = models.PositiveSmallIntegerField()
+    frequency = models.CharField(max_length=32, choices=Frequency.choices)
+    start_date = models.DateField(null=True, blank=True)
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ("-updated_at", "-created_at")

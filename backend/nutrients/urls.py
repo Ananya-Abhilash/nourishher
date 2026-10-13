@@ -1,5 +1,6 @@
 from rest_framework.routers import DefaultRouter
-from .views import NutrientViewSet
+from django.urls import path
+from .views import NutrientViewSet, assessment
 router = DefaultRouter()
 router.register("", NutrientViewSet, basename="nutrient")
-urlpatterns = router.urls
+urlpatterns = [path("assessment/", assessment, name="nutrient-assessment")] + router.urls
