@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-const links = [['/dashboard', 'Dashboard'], ['/profile', 'Health Profile'], ['/lab-results', 'Lab Results'], ['/symptoms', 'Symptoms'], ['/plan', 'Nutrition Plan'], ['/research', 'Research'], ['/ai-assistant', 'AI Assistant']]
+const links = [['/dashboard', 'Dashboard'], ['/profile', 'Health Profile'], ['/lab-results', 'Lab Results'], ['/symptoms', 'Symptoms'], ['/assessment', 'Nutrient Assessment'], ['/plan', 'Nutrition Plan'], ['/research', 'Research'], ['/ai-assistant', 'AI Assistant']]
 export default function AppLayout() {
   const { user, signOut } = useAuth(); const navigate = useNavigate()
   const logout = async () => { await signOut(); navigate('/login') }
