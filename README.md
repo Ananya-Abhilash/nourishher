@@ -1,4 +1,4 @@
-# NourishHer AI — Day 1
+# NourishHer AI 
 
 NourishHer AI is an evidence-focused nutrition and health information application. This Day 1 foundation provides account management, a private health profile, initial data models, and a React navigation shell. It does not provide medical advice.
 
